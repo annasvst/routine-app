@@ -23,7 +23,7 @@ export const App = () => {
 			{todos.map((item) => (
 				<Card sx={{ minWidth: 275 }} key={item.id}>
           <div className='card' onClick={() => handleClick(item.id)} style={{ backgroundImage: `url(${item.img})` }}>
-            {item.complete ? <CheckIcon color={'success'} fontSize='inherit'/> : null}
+            <CheckIcon className={ item.complete ? 'check__icon show' : 'check__icon'}  color={'success'} fontSize='inherit'/>
           </div>
 				</Card>
 			))}

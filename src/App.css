@@ -19,3 +19,12 @@
   border-radius: 5px;
   background-size: cover;
 }
+
+.check__icon {
+  opacity: 0;
+}
+
+.check__icon.show {
+  opacity: 1;
+  transition: opacity 3s;
+}
