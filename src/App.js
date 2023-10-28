@@ -1,25 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import Card from '@mui/material/Card';
+import CheckIcon from '@mui/icons-material/Check';
+import {useState} from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import { data } from './data';
+
+export const App = () => {
+  const currentLocalHour = new Date().getHours();
+  const currentDataset = currentLocalHour < 12 ? data.morning: data.evening;
+
+  const [todos, setTodos] = useState(currentDataset);
+
+  const handleClick = (itemId) => {
+    const currentItem = {...todos[itemId], complete: true};
+    const updatedData = [...todos.filter(item => item.id !== itemId), currentItem].sort((a, b) => a.id - b.id);
+
+    setTodos(updatedData);
+  };
+
+	return (
+		<div className='container'>
+			{todos.map((item) => (
+				<Card sx={{ minWidth: 275 }} key={item.id}>
+          <div className='card' onClick={() => handleClick(item.id)} style={{ backgroundImage: `url(${item.img})` }}>
+            {item.complete ? <CheckIcon color={'success'} fontSize='inherit'/> : null}
+          </div>
+				</Card>
+			))}
+		</div>
+	);
+};
 
 export default App;
